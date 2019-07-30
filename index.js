@@ -26,6 +26,12 @@ class PlaidAuthenticator extends Component {
     uri = token !== undefined ? `${uri}&token=${token}` : uri;
     uri = webhook !== undefined ? `${uri}&webhook=${webhook}` : uri;
 
+    const injectedJavaScript = `(function() {
+      window.postMessage = function(data) {
+        window.ReactNativeWebView.postMessage(data);
+      };
+    })()`;
+
     return (
       <WebView
         {...omit(this.props, [
@@ -41,6 +47,7 @@ class PlaidAuthenticator extends Component {
         ref={this.props.plaidRef}
         source={{ uri }}
         onMessage={this.onMessage}
+        injectedJavaScript={this.injectedJavaScript}
         useWebKit
       />
     );
