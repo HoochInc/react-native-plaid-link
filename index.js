@@ -48,6 +48,8 @@ class PlaidAuthenticator extends Component {
         source={{ uri }}
         onMessage={this.onMessage}
         injectedJavaScript={this.injectedJavaScript}
+        mixedContentMode={'compatibility'}
+        javaScriptEnabled={true}
         useWebKit
       />
     );
